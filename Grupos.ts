@@ -57,8 +57,6 @@ export class Grupo {
       }
       return 0;
     });
-
-
     // Inverte a tabela
     this._listaSelecoes.reverse();
   }
