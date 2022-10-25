@@ -4,21 +4,21 @@ import { Grupo } from "./Grupos";
 
 // A classe tabela é composto por grupo e por sua vez e composta por seleção
 class Tabela {
-  public ListaGrupos: Grupo[] = new Array<Grupo>();
-  private Iniciado: boolean = false; // Criando o atributo iniciar para ter o controle de não permitir que o programa seja iniciado mais de uma vez!
+  public listaDeGrupos: Grupo[] = new Array<Grupo>();
+  private _iniciado: boolean = false; // Criando o atributo iniciar para ter o controle de não permitir que o programa seja iniciado mais de uma vez!
 
   set lista_Grupos(listaDeGrupos: Grupo[]) {
-    this.ListaGrupos = listaDeGrupos;
+    this.listaDeGrupos = listaDeGrupos;
   }
   get lista_Grupos(): Grupo[] {
-    return this.ListaGrupos;
+    return this.listaDeGrupos;
   }
 
   set iniciado(iniciado: boolean) {
-    this.Iniciado = iniciado;
+    this._iniciado = iniciado;
   }
   get iniciado() {
-    return this.Iniciado;
+    return this._iniciado;
   }
 
   // Menu de comandos
@@ -31,15 +31,15 @@ class Tabela {
       // É um if e else inteligente
       switch (comando.toUpperCase() /* se o comando for igual a algum que está especificado entra no case*/) {
         case "INICIAR":
-          this.Iniciar();
+          this.iniciar();
           break;
 
         case "LER PARTIDA":
-          this.LerPartida();
+          this.lerPartida();
           break;
 
         case "IMPRIMIR":
-          this.Imprimir();
+          this.imprimir();
           break;
 
         case "ENCERRAR":
@@ -55,22 +55,22 @@ class Tabela {
   }
 
   // Criando grupos da tabela
-  CriarGrupos() {
-    this.ListaGrupos["A"] = new Grupo("A");
-    this.ListaGrupos["B"] = new Grupo("B");
-    this.ListaGrupos["C"] = new Grupo("C");
-    this.ListaGrupos["D"] = new Grupo("D");
-    this.ListaGrupos["E"] = new Grupo("E");
-    this.ListaGrupos["F"] = new Grupo("F");
-    this.ListaGrupos["G"] = new Grupo("G");
-    this.ListaGrupos["H"] = new Grupo("H");
+  criarGrupos() {
+    this.listaDeGrupos["A"] = new Grupo("A");
+    this.listaDeGrupos["B"] = new Grupo("B");
+    this.listaDeGrupos["C"] = new Grupo("C");
+    this.listaDeGrupos["D"] = new Grupo("D");
+    this.listaDeGrupos["E"] = new Grupo("E");
+    this.listaDeGrupos["F"] = new Grupo("F");
+    this.listaDeGrupos["G"] = new Grupo("G");
+    this.listaDeGrupos["H"] = new Grupo("H");
   }
 
   // Iniciando a tabela
-  Iniciar() {
-    if (this.Iniciado == false) {
-      this.Iniciado = true;
-      this.CriarGrupos();
+  iniciar() {
+    if (this._iniciado == false) {
+      this._iniciado = true;
+      this.criarGrupos();
       console.log("\nO programa foi iniciado!");
       this.msgAjudaProgramaIniciado();
     } else {// Caso o usuario tente iniciar o programa de novo
@@ -79,12 +79,12 @@ class Tabela {
     }
   }
 
-  LerPartida() {
+  lerPartida() {
     while (true) {
-      if (this.iniciado == true) {
+      if (this._iniciado == true) {
         var grupo = prompt("Entre com o Grupo: ").toUpperCase();
         var partida = prompt("Informe a partida: ").toUpperCase();
-        this.ListaGrupos[grupo].Partida(partida);
+        this.listaDeGrupos[grupo].Partida(partida);
         var continuar = prompt("Deseja ler outra partida? (S/N)").toUpperCase();
         // Caso o usuário queira informar outra partida
         if (continuar == "N") {
@@ -98,9 +98,9 @@ class Tabela {
     }
   }
 
-  Imprimir() {
+  imprimir() {
     var grupoImprimir = prompt("Entre com o grupo que deseja imprimir a tabela: ").toUpperCase();
-    this.ListaGrupos[grupoImprimir].Imprimir();
+    this.listaDeGrupos[grupoImprimir].imprimir();
     this.msgAjudaProgramaIniciado();
   }
 
@@ -123,7 +123,7 @@ class Tabela {
 
   // Mensagem caso o comando seja Inválido
   comandoInvalido() {
-    if (this.Iniciado == false) {
+    if (this._iniciado == false) {
       this.msgAjuda();
     } else {
       this.msgAjudaProgramaIniciado();

@@ -62,13 +62,13 @@ export class Grupo {
   }
 
   // Método que imprime a tabela de um determinado grupo com suas 4 seleções
-  Imprimir() {
+  imprimir() {
     this.ordenarSelecoes();
     console.table(this._listaSelecoes);
   }
 
   // Atualizada a tabela comforme o time perde, ganha ou empatar
-  private AtualizarTabela(S1: string, golS1: number, S2: string, golS2: number): void {
+  private atualizarTabela(S1: string, golS1: number, S2: string, golS2: number): void {
     // Coso a seleção 1 ganha ela ira receber esses atributos
     if (golS1 > golS2) {
       //Esta percorrendo array de Lista de seleções
@@ -128,9 +128,9 @@ export class Grupo {
   }
 
   // método que serve para ler uma partida, uma string. O padrão é: sel1 nºdeGols x nºdeGols sel2 
-  Partida(resultadoPartida: string): void {
+  partida(resultadoPartida: string): void {
     var partida = resultadoPartida.split(" ");  // .split particiona a string sempre que, neste caso, é encontrado um espaço, separando em um "array de strings"
     // Colocando cada dado em uma posição do Array(AtualizarTabela)
-    this.AtualizarTabela(partida[0], Number(partida[1]), partida[4], Number(partida[3])); // Chamando o método atualizarTabela, colocando como parâmetros o nome da sel1 e seus gols, os gols da sel2 e seu nome, segundo suas posições no array partida.
+    this.atualizarTabela(partida[0], Number(partida[1]), partida[4], Number(partida[3])); // Chamando o método atualizarTabela, colocando como parâmetros o nome da sel1 e seus gols, os gols da sel2 e seu nome, segundo suas posições no array partida.
   }
 }
