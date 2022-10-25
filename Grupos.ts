@@ -67,56 +67,37 @@ export class Grupo {
     console.table(this._listaSelecoes);
   }
 
-  // Atualizada a tabela comforme o time perde, ganha ou empatar
+  private atualizarVitoria(vitorioso: string, golsV: number, derrotado: string, golsD: number) {
+    for (const sel of this._listaSelecoes) {
+      if (sel.nome == vitorioso) {
+        sel.nome = vitorioso;
+        sel.golsMarcados += golsV;
+        sel.golsSofridos += golsD;
+        sel.saldoGols += golsV - golsD;
+        sel.ponto += 3;
+        sel.vitoria++;
+      }
+
+      if (sel.nome == derrotado) {
+        sel.nome = derrotado;
+        sel.golsMarcados += golsD;
+        sel.golsSofridos += golsV;
+        sel.saldoGols += golsD - golsV;
+        sel.derrotas++;
+      }
+    }
+  }
+
   private atualizarTabela(S1: string, golS1: number, S2: string, golS2: number): void {
-    // Coso a seleção 1 ganha ela ira receber esses atributos
     if (golS1 > golS2) {
-      //Esta percorrendo array de Lista de seleções
-      for (const sel of this._listaSelecoes) {
-        if (sel.nome == S1) {
-          sel.nome = S1;
-          sel.golsMarcados += golS1;
-          sel.golsSofridos += golS2;
-          sel.saldoGols += golS1 - golS2;
-          sel.ponto += 3;
-          sel.vitoria++;
-        }
-
-        // Caso a seleção 2 perde ela ira receber esses atributos
-        if (sel.nome == S2) {
-          sel.nome = S2;
-          sel.golsMarcados += golS2;
-          sel.golsSofridos += golS1;
-          sel.saldoGols += golS2 - golS1;
-          sel.derrotas++;
-        }
-      }
+      this.atualizarVitoria(S1, golS1, S2, golS2)
+    }
+    if (golS1 > golS2) {
+      this.atualizarVitoria(S2, golS2, S1, golS1)
     }
 
-    // Caso a seleção 2 ganha ela ira receber esses atributos
-    if (golS1 < golS2) {
-      for (const sel of this._listaSelecoes) {
-        if (sel.nome == S2) {
-          sel.golsMarcados += golS2;
-          sel.golsSofridos += golS1;
-          sel.saldoGols += golS2 - golS1;
-          sel.ponto += 3;
-          sel.vitoria++;
-        }
-
-        if (sel.nome == S1) {
-          sel.golsMarcados += golS1;
-          sel.golsSofridos += golS2;
-          sel.saldoGols += golS1 - golS2;
-          sel.derrotas++;
-        }
-      }
-    }
-
-    // Caso alguma seleção empartar
     if (golS1 == golS2) {
       for (const sel of this._listaSelecoes) {
-        // os dados são iguais pois a seleção empatou então elas vão receber os mesmos atributos
         if (sel.nome == S1 || sel.nome == S2) {
           sel.golsMarcados += golS2;
           sel.golsSofridos += golS1;
@@ -126,6 +107,7 @@ export class Grupo {
       }
     }
   }
+
 
   // método que serve para ler uma partida, uma string. O padrão é: sel1 nºdeGols x nºdeGols sel2 
   partida(resultadoPartida: string): void {
