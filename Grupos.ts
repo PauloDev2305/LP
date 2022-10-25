@@ -4,86 +4,69 @@ import { Selecao } from "./Selecao";
 
 // A classe grupo e composta por seleção
 export class Grupo {
-  private Nome_do_Grupo: string;
+  private _nomeGrupo: string;
   // Criando uma lista de seleções
-  private listaSelecoes: Selecao[] = new Array<Selecao>();
+  private _listaSelecoes: Selecao[] = new Array<Selecao>();
 
   // Nome Do Grupo
-  set nomeG(ng: string) {
-    this.Nome_do_Grupo = ng;
+  set nomeDoGrupo(ng: string) {
+    this._nomeGrupo = ng;
   }
-  get nomeG(): string {
-    return this.Nome_do_Grupo;
+  get nomeDoGrupo(): string {
+    return this._nomeGrupo;
   }
 
   //Lista de Seleções
   set Selecao(lista_de_selecoes: Selecao[]) {
-    this.listaSelecoes = lista_de_selecoes;
+    this._listaSelecoes = lista_de_selecoes;
   }
   get Selecao(): Selecao[] {
-    return this.listaSelecoes;
+    return this._listaSelecoes;
   }
 
   constructor(nome: string) {
-    this.Nome_do_Grupo = nome;
-    console.log(`Criando um grupo ${this.Nome_do_Grupo}`);
-    this.listaSelecoes = [];
-    var sel;
-    // toUpperCasa() transforma todas as string em maiúcula
-    sel = prompt("Entre com a Seleção 1: ").toUpperCase();
-    this.listaSelecoes[0] = new Selecao(sel);
+    this._nomeGrupo = nome;
+    this._listaSelecoes = [];
 
-    sel = prompt("Entre com a Seleção 2: ").toUpperCase();
-    this.listaSelecoes[1] = new Selecao(sel);
-
-    sel = prompt("Entre com a Seleção 3: ").toUpperCase();
-    this.listaSelecoes[2] = new Selecao(sel);
-
-    sel = prompt("Entre com a Seleção 4: ").toUpperCase();
-    this.listaSelecoes[3] = new Selecao(sel);
+    for (let i = 0; i < 4; i++) {
+      let sel = prompt(`Entre com a Seleção ${i + 1}: `).toUpperCase()
+      this._listaSelecoes[i] = new Selecao(sel)
+    }
   }
 
   // Fazendo a comparação para atualizar a ordem da tabela
-  Compare() {
-    this.listaSelecoes.sort(function compare(a, b) {
-      // 1° por pontos
+  private ordenarSelecoes() {
+    this._listaSelecoes.sort(function compare(a, b) {
       if (a.ponto < b.ponto) {
         return -1;
-      }
-      if (a.ponto > b.ponto) {
+      } else if (a.ponto > b.ponto) {
         return 1;
-      }
-
-      // 2° por saldo de  gols
-      if (a.ponto == b.ponto) {
-        if (a.
-          saldoGols < b.saldoGols) {
+      } else {
+        if (a.saldoGols < b.saldoGols) {
           return -1;
-        }
-        if (a.saldoGols > b.saldoGols) {
+        } else if (a.saldoGols > b.saldoGols) {
           return 1;
-        }
-
-        // 3° por gols marcados
-        if (a.saldoGols == b.saldoGols) {
+        } else {
           if (a.golsMarcados < b.golsMarcados) {
             return -1;
           }
-          if (a.golsMarcados < b.golsMarcados) {
-            return -1;
+          if (a.golsMarcados > b.golsMarcados) {
+            return 1;
           }
         }
       }
       return 0;
     });
+
+
     // Inverte a tabela
-    this.listaSelecoes.reverse();
+    this._listaSelecoes.reverse();
   }
 
   // Método que imprime a tabela de um determinado grupo com suas 4 seleções
   Imprimir() {
-    this.Compare();
-    console.table(this.listaSelecoes);
+    this.ordenarSelecoes();
+    console.table(this._listaSelecoes);
   }
 
   // Atualizada a tabela comforme o time perde, ganha ou empatar
@@ -91,7 +74,7 @@ export class Grupo {
     // Coso a seleção 1 ganha ela ira receber esses atributos
     if (golS1 > golS2) {
       //Esta percorrendo array de Lista de seleções
-      for (const sel of this.listaSelecoes) {
+      for (const sel of this._listaSelecoes) {
         if (sel.nome == S1) {
           sel.nome = S1;
           sel.golsMarcados += golS1;
@@ -114,7 +97,7 @@ export class Grupo {
 
     // Caso a seleção 2 ganha ela ira receber esses atributos
     if (golS1 < golS2) {
-      for (const sel of this.listaSelecoes) {
+      for (const sel of this._listaSelecoes) {
         if (sel.nome == S2) {
           sel.golsMarcados += golS2;
           sel.golsSofridos += golS1;
@@ -134,7 +117,7 @@ export class Grupo {
 
     // Caso alguma seleção empartar
     if (golS1 == golS2) {
-      for (const sel of this.listaSelecoes) {
+      for (const sel of this._listaSelecoes) {
         // os dados são iguais pois a seleção empatou então elas vão receber os mesmos atributos
         if (sel.nome == S1 || sel.nome == S2) {
           sel.golsMarcados += golS2;
