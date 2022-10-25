@@ -2,21 +2,17 @@ import * as promptSync from "prompt-sync";
 var prompt = promptSync();
 import { Selecao } from "./Selecao";
 
-// A classe grupo e composta por seleção
 export class Grupo {
-  private _nomeGrupo: string;
-  // Criando uma lista de seleções
+  private _nomeDoGrupo: string;
   private _listaSelecoes: Selecao[] = new Array<Selecao>();
 
-  // Nome Do Grupo
   set nomeDoGrupo(ng: string) {
-    this._nomeGrupo = ng;
+    this._nomeDoGrupo = ng;
   }
   get nomeDoGrupo(): string {
-    return this._nomeGrupo;
+    return this._nomeDoGrupo;
   }
 
-  //Lista de Seleções
   set Selecao(lista_de_selecoes: Selecao[]) {
     this._listaSelecoes = lista_de_selecoes;
   }
@@ -25,7 +21,7 @@ export class Grupo {
   }
 
   constructor(nome: string) {
-    this._nomeGrupo = nome;
+    this._nomeDoGrupo = nome;
     this._listaSelecoes = [];
 
     for (let i = 0; i < 4; i++) {
@@ -34,7 +30,6 @@ export class Grupo {
     }
   }
 
-  // Fazendo a comparação para atualizar a ordem da tabela
   private ordenarSelecoes() {
     this._listaSelecoes.sort(function compare(a, b) {
       if (a.ponto < b.ponto) {
@@ -61,7 +56,6 @@ export class Grupo {
     this._listaSelecoes.reverse();
   }
 
-  // Método que imprime a tabela de um determinado grupo com suas 4 seleções
   imprimir() {
     this.ordenarSelecoes();
     console.table(this._listaSelecoes);
@@ -95,7 +89,6 @@ export class Grupo {
     if (golS1 > golS2) {
       this.atualizarVitoria(S2, golS2, S1, golS1)
     }
-
     if (golS1 == golS2) {
       for (const sel of this._listaSelecoes) {
         if (sel.nome == S1 || sel.nome == S2) {
@@ -108,11 +101,8 @@ export class Grupo {
     }
   }
 
-
-  // método que serve para ler uma partida, uma string. O padrão é: sel1 nºdeGols x nºdeGols sel2 
   partida(resultadoPartida: string): void {
-    var partida = resultadoPartida.split(" ");  // .split particiona a string sempre que, neste caso, é encontrado um espaço, separando em um "array de strings"
-    // Colocando cada dado em uma posição do Array(AtualizarTabela)
-    this.atualizarTabela(partida[0], Number(partida[1]), partida[4], Number(partida[3])); // Chamando o método atualizarTabela, colocando como parâmetros o nome da sel1 e seus gols, os gols da sel2 e seu nome, segundo suas posições no array partida.
+    var partida = resultadoPartida.split(" ");
+    this.atualizarTabela(partida[0], Number(partida[1]), partida[4], Number(partida[3]));
   }
 }

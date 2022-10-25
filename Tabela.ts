@@ -1,6 +1,6 @@
 import * as promptSync from "prompt-sync";
 var prompt = promptSync();
-import { Grupo } from "./Grupos";
+import { Grupo } from "./Grupo";
 
 // A classe tabela é composto por grupo e por sua vez e composta por seleção
 class Tabela {
