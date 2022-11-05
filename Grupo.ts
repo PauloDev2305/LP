@@ -1,5 +1,3 @@
-import * as promptSync from "prompt-sync";
-var prompt = promptSync();
 import { Selecao } from "./Selecao";
 
 export class Grupo {
@@ -20,13 +18,12 @@ export class Grupo {
     return this._listaSelecoes;
   }
 
-  constructor(nome: string) {
+  constructor(nome: string, quatroSelecoes: string[]) {
     this._nomeDoGrupo = nome;
     this._listaSelecoes = [];
 
     for (let i = 0; i < 4; i++) {
-      let sel = prompt(`Entre com a Seleção ${i + 1}: `).toUpperCase()
-      this._listaSelecoes[i] = new Selecao(sel)
+      this._listaSelecoes[i] = new Selecao(quatroSelecoes[i])
     }
   }
 

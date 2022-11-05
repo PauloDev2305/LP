@@ -56,14 +56,10 @@ class Tabela {
 
   // Criando grupos da tabela
   criarGrupos() {
-    this.listaDeGrupos["A"] = new Grupo("A");
-    this.listaDeGrupos["B"] = new Grupo("B");
-    this.listaDeGrupos["C"] = new Grupo("C");
-    this.listaDeGrupos["D"] = new Grupo("D");
-    this.listaDeGrupos["E"] = new Grupo("E");
-    this.listaDeGrupos["F"] = new Grupo("F");
-    this.listaDeGrupos["G"] = new Grupo("G");
-    this.listaDeGrupos["H"] = new Grupo("H");
+
+    for ( var i = 0; i <= this.listaDeGrupos.length; i++) {
+      this.listaDeGrupos = new Grupo["Algum valor"]
+    }
   }
 
   // Iniciando a tabela
@@ -84,7 +80,7 @@ class Tabela {
       if (this._iniciado == true) {
         var grupo = prompt("Entre com o Grupo: ").toUpperCase();
         var partida = prompt("Informe a partida: ").toUpperCase();
-        this.listaDeGrupos[grupo].Partida(partida);
+        this.listaDeGrupos[grupo].partida(partida);
         var continuar = prompt("Deseja ler outra partida? (S/N)").toUpperCase();
         // Caso o usuário queira informar outra partida
         if (continuar == "N") {
