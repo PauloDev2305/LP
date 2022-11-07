@@ -1,11 +1,11 @@
-B
+A
 BR
 ES
 PT
 AR
 
-C
-US
+B
+USA
 EN
 DI
 SU

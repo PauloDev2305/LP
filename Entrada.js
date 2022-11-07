@@ -15,9 +15,16 @@ class Entrada {
     }
     lerResultados(nomeArquivo) {
         var arquivo = (0, fs_1.readFileSync)(nomeArquivo, "utf-8");
-        var vetResultado = arquivo.split(' ');
+        var vetResultado = arquivo.split('\r\n');
         var listaResultados = new Array();
-        console.log(vetResultado);
+        var partidas = new Array();
+        for (var i = 0; i < vetResultado.length; i++) {
+            var novoVetPartidas = vetResultado[i].split('-');
+            if (partidas[novoVetPartidas[0]] == null)
+                partidas[novoVetPartidas[0]] = [];
+            partidas[novoVetPartidas[0]].push(novoVetPartidas[1]);
+        }
+        console.log(partidas);
         return listaResultados;
     }
 }
