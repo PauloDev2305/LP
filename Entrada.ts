@@ -1,23 +1,40 @@
-import { Grupo } from "./Grupo"
+import { Grupo } from './Grupo'
 import { readFileSync } from 'fs'
 
 interface Entrada {
-    // lerEquipes(nomeArquivo: string): Grupo[];
-    // lerResultados(nomeArquivo: string): String[];
-    lerArquivo(nomeArquivo: string): void;
+    lerEquipes(nomeArquivo: string): Grupo[];
+    lerResultados(nomeArquivo: string): String[];
+    // lerArquivo(nomeArquivo: string): void;
 }
 
 class Entrada implements Entrada {
-    lerArquivo(nomeArquivo: string): void {
+    lerEquipes(nomeArquivo: string): Grupo[] {
         var arquivo = readFileSync(nomeArquivo, "utf-8")
         var vetEntrada = arquivo.split('\r\n')
-        // \r\n quebra de linha no windows
+
         let listaGrupos: Grupo[] = new Array<Grupo>()
-        for (var i = 0; vetEntrada.length / 6; i++) {
-            listaGrupos[i] = new Grupo(vetEntrada[i * 6], vetEntrada.slice(i * 6 + 1, i * 5 + 1))
+
+        for (let i = 0; i < vetEntrada.length / 6; i++) {
+            listaGrupos[i] = new Grupo(vetEntrada[i * 6], vetEntrada.slice(i * 6 + 1, i * 6 + 5))
         }
+
+        console.log(listaGrupos);
+        return listaGrupos
+    }
+
+    lerResultados(nomeArquivo: string): String[] {
+        var arquivo = readFileSync(nomeArquivo, "utf-8")
+        var vetResultado = arquivo.split('\r\n')
+
+        var listaResultados: String[] = new Array<String>()
+
+        for (let i = 0; i < listaResultados.length; i++) {
+
+        }
+
+        return listaResultados
     }
 }
 
 var obj = new Entrada
-obj.lerArquivo("Equipes.txt")
+obj.lerEquipes("./src/Equipes.txt")

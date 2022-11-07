@@ -9,7 +9,6 @@ export class Selecao {
   private _golsSofridos: number;
   private _saldoGols: number;
 
-  // Inicia apenas o nome por conta de outras atributos já foram iniciados
   constructor(nome: string) {
     this._nome = nome;
     this._pontos = 0;
@@ -21,8 +20,6 @@ export class Selecao {
     this._saldoGols = 0;
   }
 
-  // Geters e Seters por que os atributos são privados
-  // Nome
   set nome(n: string) {
     this._nome = n;
   }
@@ -30,7 +27,6 @@ export class Selecao {
     return this._nome;
   }
 
-  // Pontos
   set ponto(pts: number) {
     this._pontos = pts;
   }
@@ -38,7 +34,6 @@ export class Selecao {
     return this._pontos;
   }
 
-  // Vitorias
   set vitoria(v: number) {
     this._vitorias = v;
   }
@@ -46,7 +41,6 @@ export class Selecao {
     return this._vitorias;
   }
 
-  // Derrotas
   set derrotas(d: number) {
     this._vitorias = d;
   }
@@ -54,7 +48,6 @@ export class Selecao {
     return this._derrotas;
   }
 
-  // Empates
   set empates(e: number) {
     this._empates = e;
   }
@@ -62,7 +55,6 @@ export class Selecao {
     return this._empates;
   }
 
-  // Gols marcados
   set golsMarcados(gm: number) {
     this._golsMarcados = gm;
   }
@@ -70,7 +62,6 @@ export class Selecao {
     return this._golsMarcados;
   }
 
-  // Gols sofridos
   set golsSofridos(gs: number) {
     this._golsSofridos = gs;
   }
@@ -78,7 +69,6 @@ export class Selecao {
     return this._golsSofridos;
   }
 
-  // Saldo de Gols
   set saldoGols(sg: number) {
     this._saldoGols = sg;
   }
