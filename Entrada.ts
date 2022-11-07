@@ -16,25 +16,24 @@ class Entrada implements Entrada {
 
         for (let i = 0; i < vetEntrada.length / 6; i++) {
             listaGrupos[i] = new Grupo(vetEntrada[i * 6], vetEntrada.slice(i * 6 + 1, i * 6 + 5))
+            console.log(listaGrupos[i])
+            
         }
 
-        console.log(listaGrupos);
         return listaGrupos
     }
 
     lerResultados(nomeArquivo: string): String[] {
         var arquivo = readFileSync(nomeArquivo, "utf-8")
-        var vetResultado = arquivo.split('\r\n')
-
+        var vetResultado = arquivo.split(' ')
+        
         var listaResultados: String[] = new Array<String>()
 
-        for (let i = 0; i < listaResultados.length; i++) {
-
-        }
-
+        console.log(vetResultado)
         return listaResultados
     }
 }
 
 var obj = new Entrada
-obj.lerEquipes("./src/Equipes.txt")
+// obj.lerEquipes("./src/Equipes.txt")
+obj.lerResultados("./src/Resultado.txt")
