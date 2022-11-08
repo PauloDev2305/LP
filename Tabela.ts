@@ -57,7 +57,7 @@ class Tabela {
   // Criando grupos da tabela
   criarGrupos() {
 
-    for ( var i = 0; i <= this.listaDeGrupos.length; i++) {
+    for (var i = 0; i <= this.listaDeGrupos.length; i++) {
       this.listaDeGrupos = new Grupo["Algum valor"]
     }
   }
