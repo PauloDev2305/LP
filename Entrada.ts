@@ -27,9 +27,7 @@ class Entrada implements Entrada {
         var arquivo = readFileSync(nomeArquivo, "utf-8")
         var vetResultado = arquivo.split('\r\n')
 
-        /* Não está sendo utilizado no código por isso está comentado 
-        var listaResultados: String[] = new Array<String>() */
-        var vetorPartidas = new Array()
+        var vetorPartidas: String[] = new Array()
 
         for (var i = 0; i < vetResultado.length; i++) {
             var novoVetPartidas = vetResultado[i].split('-')
