@@ -28,7 +28,7 @@ class Entrada implements Entrada {
         var vetResultado = arquivo.split('\r\n')
 
         /* Não está sendo utilizado no código por isso está comentado 
-        var listaResultados: String[] = new Array<String>()*/
+        var listaResultados: String[] = new Array<String>() */
         var vetorPartidas = new Array()
 
         for (var i = 0; i < vetResultado.length; i++) {
