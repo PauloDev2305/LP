@@ -28,7 +28,7 @@ class Entrada implements Entrada {
         var vetResultado = arquivo.split('\r\n')
 
         var listaResultados: String[] = new Array<String>()
-        var partidas = new Array()
+        var vetorPartidas = new Array()
 
         for (var i = 0; i < vetResultado.length; i++) {
             var novoVetPartidas = vetResultado[i].split('-')
