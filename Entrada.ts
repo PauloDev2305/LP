@@ -1,6 +1,5 @@
 import { Grupo } from './Grupo'
 import { readFileSync } from 'fs'
-import { NODATA } from 'dns';
 
 interface Entrada {
     lerEquipes(nomeArquivo: string): Grupo[];
