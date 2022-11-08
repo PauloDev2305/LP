@@ -28,17 +28,17 @@ class Entrada implements Entrada {
         var vetResultado = arquivo.split('\r\n')
 
         var listaResultados: String[] = new Array<String>()
-        var partidas = new Array()
+        var vetorPartidas = new Array()
 
         for (var i = 0; i < vetResultado.length; i++) {
             var novoVetPartidas = vetResultado[i].split('-')
 
-            if (partidas[novoVetPartidas[0]] == null) {
-                partidas[novoVetPartidas[0]] = [];
+            if (vetorPartidas[novoVetPartidas[0]] == null) {
+                vetorPartidas[novoVetPartidas[0]] = [];
             }
-            partidas[novoVetPartidas[0]].push(novoVetPartidas[1]);
+            vetorPartidas[novoVetPartidas[0]].push(novoVetPartidas[1]);
         }
-        console.log(partidas);
+        console.log(vetorPartidas);
 
         return listaResultados
     }
