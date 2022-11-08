@@ -27,7 +27,6 @@ class Entrada implements Entrada {
         var arquivo = readFileSync(nomeArquivo, "utf-8")
         var vetResultado = arquivo.split('\r\n')
 
-        var listaResultados: String[] = new Array<String>()
         var vetorPartidas = new Array()
 
         for (var i = 0; i < vetResultado.length; i++) {
@@ -40,7 +39,7 @@ class Entrada implements Entrada {
         }
         console.log(vetorPartidas);
 
-        return listaResultados
+        return vetorPartidas
     }
 }
 
