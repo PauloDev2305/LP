@@ -35,7 +35,7 @@ class Entrada implements Entrada {
 
             if (partidas[novoVetPartidas[0]] == null) {
                 partidas[novoVetPartidas[0]] = [];
-            } 
+            }
             partidas[novoVetPartidas[0]].push(novoVetPartidas[1]);
         }
         console.log(partidas);
