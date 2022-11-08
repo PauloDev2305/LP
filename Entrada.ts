@@ -1,6 +1,5 @@
 import { Grupo } from './Grupo'
 import { readFileSync } from 'fs'
-import { NODATA } from 'dns';
 
 interface Entrada {
     lerEquipes(nomeArquivo: string): Grupo[];
@@ -28,22 +27,22 @@ class Entrada implements Entrada {
         var arquivo = readFileSync(nomeArquivo, "utf-8")
         var vetResultado = arquivo.split('\r\n')
 
+        var listaResultados: String[] = new Array<String>()
         var partidas = new Array()
 
         for (var i = 0; i < vetResultado.length; i++) {
             var novoVetPartidas = vetResultado[i].split('-')
 
-            if (partidas[novoVetPartidas[0]] == null)
-                partidas[novoVetPartidas[0]] = [];
-
-            partidas[novoVetPartidas[0]].push(novoVetPartidas[1]);
+            if (vetorPartidas[novoVetPartidas[0]] == null) {
+                vetorPartidas[novoVetPartidas[0]] = [];
+            }
+            vetorPartidas[novoVetPartidas[0]].push(novoVetPartidas[1]);
         }
-        console.log(partidas);
+        console.log(vetorPartidas);
 
-        return partidas
+        return listaResultados
     }
 }
 
 var obj = new Entrada
-// obj.lerEquipes("./src/Equipes.txt")
 obj.lerResultados("./src/Resultado.txt")
