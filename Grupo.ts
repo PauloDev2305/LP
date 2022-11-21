@@ -27,37 +27,6 @@ export class Grupo {
     }
   }
 
-  private ordenarSelecoes() {
-    this._listaSelecoes.sort(function compare(a, b) {
-      if (a.ponto < b.ponto) {
-        return -1;
-      } else if (a.ponto > b.ponto) {
-        return 1;
-      } else {
-        if (a.saldoGols < b.saldoGols) {
-          return -1;
-        } else if (a.saldoGols > b.saldoGols) {
-          return 1;
-        } else {
-          if (a.golsMarcados < b.golsMarcados) {
-            return -1;
-          }
-          if (a.golsMarcados > b.golsMarcados) {
-            return 1;
-          }
-        }
-      }
-      return 0;
-    });
-    // Inverte a tabela
-    this._listaSelecoes.reverse();
-  }
-
-  imprimir() {
-    this.ordenarSelecoes();
-    console.table(this._listaSelecoes);
-  }
-
   private atualizarVitoria(vitorioso: string, golsV: number, derrotado: string, golsD: number) {
     for (const sel of this._listaSelecoes) {
       if (sel.nome == vitorioso) {
@@ -102,4 +71,35 @@ export class Grupo {
     var partida = resultadoPartida.split(" ");
     this.atualizarTabela(partida[0], Number(partida[1]), partida[4], Number(partida[3]));
   }
+  private ordenarSelecoes() {
+    this._listaSelecoes.sort(function compare(a, b) {
+      if (a.ponto < b.ponto) {
+        return -1;
+      } else if (a.ponto > b.ponto) {
+        return 1;
+      } else {
+        if (a.saldoGols < b.saldoGols) {
+          return -1;
+        } else if (a.saldoGols > b.saldoGols) {
+          return 1;
+        } else {
+          if (a.golsMarcados < b.golsMarcados) {
+            return -1;
+          }
+          if (a.golsMarcados > b.golsMarcados) {
+            return 1;
+          }
+        }
+      }
+      return 0;
+    });
+    // Inverte a tabela
+    this._listaSelecoes.reverse();
+  }
+
+  imprimir() {
+    this.ordenarSelecoes();
+    console.table(this._listaSelecoes);
+  }
+
 }
