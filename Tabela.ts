@@ -4,6 +4,8 @@ import { Grupo } from "./Grupo";
 
 // A classe tabela é composto por grupo e por sua vez e composta por seleção
 class Tabela {
+  private _nomeArquivoGrupos: String;
+  private _nomeArquivoPartidas: String;
   public listaDeGrupos: Grupo[] = new Array<Grupo>();
   private _iniciado: boolean = false; // Criando o atributo iniciar para ter o controle de não permitir que o programa seja iniciado mais de uma vez!
 
@@ -64,34 +66,12 @@ class Tabela {
 
   // Iniciando a tabela
   iniciar() {
-    if (this._iniciado == false) {
-      this._iniciado = true;
-      this.criarGrupos();
-      console.log("\nO programa foi iniciado!");
-      this.msgAjudaProgramaIniciado();
-    } else {// Caso o usuario tente iniciar o programa de novo
-      console.log("\nO programa já foi iniciado, por favor tente outro comando!");
-      this.msgAjudaProgramaIniciado();
-    }
+    this._nomeArquivoPartidas = prompt("Entre com o aquivos de grupos: ");
+    this._nomeArquivoGrupos = prompt("Entre com arquivos de grupos")
   }
 
   lerPartida() {
-    while (true) {
-      if (this._iniciado == true) {
-        var grupo = prompt("Entre com o Grupo: ").toUpperCase();
-        var partida = prompt("Informe a partida: ").toUpperCase();
-        this.listaDeGrupos[grupo].partida(partida);
-        var continuar = prompt("Deseja ler outra partida? (S/N)").toUpperCase();
-        // Caso o usuário queira informar outra partida
-        if (continuar == "N") {
-          this.msgAjudaProgramaIniciado();
-          break;
-        }
-      } else {
-        console.log("\nVocê não pode Ler partida, o programa ainda não foi iniciado");
-        break;
-      }
-    }
+    
   }
 
   imprimir() {
