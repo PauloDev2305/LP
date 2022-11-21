@@ -45,3 +45,4 @@ class Entrada implements Entrada {
 
 var obj = new Entrada
 obj.lerResultados("./src/Resultado.txt")
+alert("Deu certo")
