@@ -1,31 +1,29 @@
 import { Grupo } from './Grupo'
 import { readFileSync } from 'fs'
 
-interface Entrada {
+interface IEntrada {
     lerEquipes(nomeArquivo: string): Grupo[];
     lerResultados(nomeArquivo: string): String[];
     // lerArquivo(nomeArquivo: string): void;
 }
 
-class Entrada implements Entrada {
+export class Entrada implements IEntrada {
     lerEquipes(nomeArquivo: string): Grupo[] {
         var arquivo = readFileSync(nomeArquivo, "utf-8")
-        var vetEntrada = arquivo.split('\n')
+        var vetEntrada = arquivo.split('\r\n')
 
         let listaGrupos: Grupo[] = new Array<Grupo>()
 
         for (let i = 0; i < vetEntrada.length / 6; i++) {
-            listaGrupos[i] = new Grupo(vetEntrada[i * 6], vetEntrada.slice(i * 6 + 1, i * 6 + 5))
-            console.log(listaGrupos[i])
-
+            listaGrupos[vetEntrada[i * 6]] = new Grupo(vetEntrada[i * 6], vetEntrada.slice(i * 6 + 1, i * 6 + 5))
         }
 
         return listaGrupos
     }
 
-    lerResultados(nomeArquivo: string): String[] {
+    lerResultados(nomeArquivo: string): string[] {
         var arquivo = readFileSync(nomeArquivo, "utf-8")
-        var vetResultado = arquivo.split('\n')
+        var vetResultado = arquivo.split('\r\n')
 
         var vetorPartidas = new Array()
 
@@ -37,12 +35,8 @@ class Entrada implements Entrada {
             }
             vetorPartidas[novoVetPartidas[0]].push(novoVetPartidas[1]);
         }
-        console.log(vetorPartidas);
 
         return vetorPartidas
     }
 }
 
-var obj = new Entrada
-obj.lerResultados("./src/Resultado.txt")
-alert("Deu certo")

@@ -1,19 +1,23 @@
 import * as promptSync from "prompt-sync";
 var prompt = promptSync();
 import { Grupo } from "./Grupo";
+import { Entrada } from "./Entrada"
 
-// A classe tabela é composto por grupo e por sua vez e composta por seleção
 class Tabela {
-  private _nomeArquivoGrupos: String;
-  private _nomeArquivoPartidas: String;
-  public listaDeGrupos: Grupo[] = new Array<Grupo>();
-  private _iniciado: boolean = false; // Criando o atributo iniciar para ter o controle de não permitir que o programa seja iniciado mais de uma vez!
+  private _nomeArquivoGrupos: string;
+  private _nomeArquivoPartidas: string;
 
-  set lista_Grupos(listaDeGrupos: Grupo[]) {
-    this.listaDeGrupos = listaDeGrupos;
+  private _entrada: Entrada = new Entrada()
+  partidas: String[]
+
+  public _listaDeGrupos: Grupo[] = new Array<Grupo>();
+  private _iniciado: boolean = false; 
+
+  set lista_Grupos(_listaDeGrupos: Grupo[]) {
+    this._listaDeGrupos = _listaDeGrupos;
   }
   get lista_Grupos(): Grupo[] {
-    return this.listaDeGrupos;
+    return this._listaDeGrupos;
   }
 
   set iniciado(iniciado: boolean) {
@@ -37,7 +41,7 @@ class Tabela {
           break;
 
         case "LER PARTIDA":
-          this.lerPartida();
+          this.carregarPartida();
           break;
 
         case "IMPRIMIR":
@@ -50,39 +54,38 @@ class Tabela {
 
         default:
           console.log("\nComando Inválido!");
-          this.comandoInvalido()
           break;
       }
     }
   }
 
-  // Criando grupos da tabela
-  criarGrupos() {
-
-    for (var i = 0; i <= this.listaDeGrupos.length; i++) {
-      this.listaDeGrupos = new Grupo["Algum valor"]
-    }
-  }
-
   // Iniciando a tabela
   iniciar() {
-    this._nomeArquivoPartidas = prompt("Entre com o aquivos de grupos: ");
-    this._nomeArquivoGrupos = prompt("Entre com arquivos de grupos")
+    this._nomeArquivoGrupos = prompt("Entre com arquivos de grupos: ")
+    this._nomeArquivoPartidas = prompt("Entre com o aquivos de partidas: ")
+
+    this._listaDeGrupos = this._entrada.lerEquipes(this._nomeArquivoGrupos)
+    this.partidas = this._entrada.lerResultados(this._nomeArquivoPartidas)
+    this.carregarPartida()
   }
 
-  lerPartida() {
-    
+  carregarPartida() {
+    for (let grupo in this.partidas) {
+      for (let p of this.partidas[grupo]) {
+        this._listaDeGrupos[grupo].partida(p)
+      }
+    }
   }
 
   imprimir() {
     var grupoImprimir = prompt("Entre com o grupo que deseja imprimir a tabela: ").toUpperCase();
-    this.listaDeGrupos[grupoImprimir].imprimir();
+    this._listaDeGrupos[grupoImprimir].imprimir();
     this.msgAjudaProgramaIniciado();
   }
 
   // Mensagem de ajuda quando o programa ainda não foi iniciado
   msgAjuda() {
-    console.log("MENU DE COMANDOS A BAIXO");
+    console.log("MENU DE COMANDOS ABAIXO");
     console.log("Para iniciar a tabela digite: INICIAR");
     console.log("Para ler partida digite: Ler partida");
     console.log("Para imprimir a tabela digite: IMPRIMIR");
@@ -97,14 +100,6 @@ class Tabela {
     console.log("Para terminar digite: ENCERRAR");
   }
 
-  // Mensagem caso o comando seja Inválido
-  comandoInvalido() {
-    if (this._iniciado == false) {
-      this.msgAjuda();
-    } else {
-      this.msgAjudaProgramaIniciado();
-    }
-  }
 }
 var tabela = new Tabela();
 tabela.menu();

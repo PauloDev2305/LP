@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Grupo = void 0;
 const Selecao_1 = require("./Selecao");
 class Grupo {
     constructor(nome, quatroSelecoes) {
@@ -21,39 +22,6 @@ class Grupo {
     }
     get Selecao() {
         return this._listaSelecoes;
-    }
-    ordenarSelecoes() {
-        this._listaSelecoes.sort(function compare(a, b) {
-            if (a.ponto < b.ponto) {
-                return -1;
-            }
-            else if (a.ponto > b.ponto) {
-                return 1;
-            }
-            else {
-                if (a.saldoGols < b.saldoGols) {
-                    return -1;
-                }
-                else if (a.saldoGols > b.saldoGols) {
-                    return 1;
-                }
-                else {
-                    if (a.golsMarcados < b.golsMarcados) {
-                        return -1;
-                    }
-                    if (a.golsMarcados > b.golsMarcados) {
-                        return 1;
-                    }
-                }
-            }
-            return 0;
-        });
-        // Inverte a tabela
-        this._listaSelecoes.reverse();
-    }
-    imprimir() {
-        this.ordenarSelecoes();
-        console.table(this._listaSelecoes);
     }
     atualizarVitoria(vitorioso, golsV, derrotado, golsD) {
         for (const sel of this._listaSelecoes) {
@@ -95,6 +63,39 @@ class Grupo {
     partida(resultadoPartida) {
         var partida = resultadoPartida.split(" ");
         this.atualizarTabela(partida[0], Number(partida[1]), partida[4], Number(partida[3]));
+    }
+    ordenarSelecoes() {
+        this._listaSelecoes.sort(function compare(a, b) {
+            if (a.ponto < b.ponto) {
+                return -1;
+            }
+            else if (a.ponto > b.ponto) {
+                return 1;
+            }
+            else {
+                if (a.saldoGols < b.saldoGols) {
+                    return -1;
+                }
+                else if (a.saldoGols > b.saldoGols) {
+                    return 1;
+                }
+                else {
+                    if (a.golsMarcados < b.golsMarcados) {
+                        return -1;
+                    }
+                    if (a.golsMarcados > b.golsMarcados) {
+                        return 1;
+                    }
+                }
+            }
+            return 0;
+        });
+        // Inverte a tabela
+        this._listaSelecoes.reverse();
+    }
+    imprimir() {
+        this.ordenarSelecoes();
+        console.table(this._listaSelecoes);
     }
 }
 exports.Grupo = Grupo;

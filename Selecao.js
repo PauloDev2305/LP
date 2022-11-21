@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Selecao = void 0;
 // Criando uma classe de seleções
 class Selecao {
     constructor(nome) {
