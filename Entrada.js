@@ -5,7 +5,7 @@ const fs_1 = require("fs");
 class Entrada {
     lerEquipes(nomeArquivo) {
         var arquivo = fs_1.readFileSync(nomeArquivo, "utf-8");
-        var vetEntrada = arquivo.split('\r\n');
+        var vetEntrada = arquivo.split('\n');
         let listaGrupos = new Array();
         for (let i = 0; i < vetEntrada.length / 6; i++) {
             listaGrupos[i] = new Grupo_1.Grupo(vetEntrada[i * 6], vetEntrada.slice(i * 6 + 1, i * 6 + 5));
@@ -15,7 +15,7 @@ class Entrada {
     }
     lerResultados(nomeArquivo) {
         var arquivo = fs_1.readFileSync(nomeArquivo, "utf-8");
-        var vetResultado = arquivo.split('\r\n');
+        var vetResultado = arquivo.split('\n');
         var vetorPartidas = new Array();
         for (var i = 0; i < vetResultado.length; i++) {
             var novoVetPartidas = vetResultado[i].split('-');
