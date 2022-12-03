@@ -7,6 +7,7 @@ export class Grupo {
   set nomeDoGrupo(ng: string) {
     this._nomeDoGrupo = ng;
   }
+  
   get nomeDoGrupo(): string {
     return this._nomeDoGrupo;
   }
@@ -52,9 +53,10 @@ export class Grupo {
     if (golS1 > golS2) {
       this.atualizarVitoria(S1, golS1, S2, golS2)
     }
-    if (golS1 > golS2) {
+    if (golS1 < golS2) {
       this.atualizarVitoria(S2, golS2, S1, golS1)
     }
+    
     if (golS1 == golS2) {
       for (const sel of this._listaSelecoes) {
         if (sel.nome == S1 || sel.nome == S2) {
@@ -71,6 +73,7 @@ export class Grupo {
     var partida = resultadoPartida.split(" ");
     this.atualizarTabela(partida[0], Number(partida[1]), partida[4], Number(partida[3]));
   }
+
   private ordenarSelecoes() {
     this._listaSelecoes.sort(function compare(a, b) {
       if (a.ponto < b.ponto) {

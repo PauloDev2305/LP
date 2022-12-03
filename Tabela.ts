@@ -11,7 +11,7 @@ class Tabela {
   partidas: String[]
 
   public _listaDeGrupos: Grupo[] = new Array<Grupo>();
-  private _iniciado: boolean = false; 
+  private _iniciado: boolean = false;
 
   set lista_Grupos(_listaDeGrupos: Grupo[]) {
     this._listaDeGrupos = _listaDeGrupos;
@@ -37,7 +37,14 @@ class Tabela {
       // É um if e else inteligente
       switch (comando.toUpperCase() /* se o comando for igual a algum que está especificado entra no case*/) {
         case "INICIAR":
-          this.iniciar();
+
+        if (this._iniciado == false) {
+            this.iniciar();
+            this._iniciado = true
+          } else {
+            console.log('O comando não pode ser iniciado mais de uma vez!')
+          }
+
           break;
 
         case "LER PARTIDA":
@@ -49,7 +56,8 @@ class Tabela {
           break;
 
         case "ENCERRAR":
-          console.log("O programa foi encerrado, obrigado pro utilizar nosso programa!");
+          console.log("O programa foi encerrado. Obrigado pro utilizar nosso programa!");
+          this._iniciado = false
           return;
 
         default:
@@ -61,12 +69,18 @@ class Tabela {
 
   // Iniciando a tabela
   iniciar() {
-    this._nomeArquivoGrupos = prompt("Entre com arquivos de grupos: ")
-    this._nomeArquivoPartidas = prompt("Entre com o aquivos de partidas: ")
+    try {
+      this._nomeArquivoGrupos = prompt("Entre com arquivos de grupos: ")
+      this._nomeArquivoPartidas = prompt("Entre com o aquivos de partidas: ")
 
-    this._listaDeGrupos = this._entrada.lerEquipes(this._nomeArquivoGrupos)
-    this.partidas = this._entrada.lerResultados(this._nomeArquivoPartidas)
-    this.carregarPartida()
+      this._listaDeGrupos = this._entrada.lerEquipes(this._nomeArquivoGrupos)
+      this.partidas = this._entrada.lerResultados(this._nomeArquivoPartidas)
+      this.carregarPartida()
+
+    } catch (error) {
+      console.log('Nome(s) do(s) arquivo(s) incorreto(s)! Por favor, insira o arquivo correto.')
+      this.iniciar()
+    }
   }
 
   carregarPartida() {
