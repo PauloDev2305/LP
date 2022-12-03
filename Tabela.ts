@@ -35,7 +35,7 @@ class Tabela {
     while (true) {
       var comando = prompt("Entre com um comando: ");
       // É um if e else inteligente
-      switch (comando.toUpperCase() /* se o comando for igual a algum que está especificado entra no case*/) {
+      switch (comando.toUpperCase()) {
         case "INICIAR":
 
         if (this._iniciado == false) {
