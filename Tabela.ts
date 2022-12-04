@@ -1,5 +1,5 @@
 import * as promptSync from "prompt-sync";
-var prompt = promptSync();
+const prompt = promptSync();
 import { Grupo } from "./Grupo";
 import { Entrada } from "./Entrada"
 
@@ -30,7 +30,7 @@ class Tabela {
   menu() {
     this.msgAjuda();
     while (true) {
-      var comando = prompt("Entre com um comando: ");
+      let comando = prompt("Entre com um comando: ");
       switch (comando.toUpperCase()) {
         case "INICIAR":
 
@@ -96,7 +96,7 @@ class Tabela {
   }
 
   imprimir() {
-    var grupoImprimir = prompt("Entre com o grupo que deseja imprimir a tabela: ").toUpperCase();
+    let grupoImprimir = prompt("Entre com o grupo que deseja imprimir a tabela: ").toUpperCase();
     this._listaDeGrupos[grupoImprimir].imprimir();
     this.msgAjudaProgramaIniciado();
   }
@@ -115,5 +115,5 @@ class Tabela {
   }
 
 }
-var tabela = new Tabela();
+let tabela = new Tabela();
 tabela.menu();

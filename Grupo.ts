@@ -69,7 +69,7 @@ export class Grupo {
   }
 
   partida(resultadoPartida: string): void {
-    var partida = resultadoPartida.split(" ");
+    let partida = resultadoPartida.split(" ");
     this.atualizarTabela(partida[0], Number(partida[1]), partida[4], Number(partida[3]));
   }
 
