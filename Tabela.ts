@@ -12,32 +12,26 @@ import { Entrada } from "./Entrada"
 class Tabela {
   private _nomeArquivoGrupos: string;
   private _nomeArquivoPartidas: string;
-
-  private _entrada: Entrada = new Entrada()
-  partidas: String[]
-
-  public _listaDeGrupos: Grupo[] = new Array<Grupo>();
+  private _listaDeGrupos: Grupo[] = new Array<Grupo>();
   private _iniciado: boolean = false;
 
-  set lista_Grupos(_listaDeGrupos: Grupo[]) {
-    this._listaDeGrupos = _listaDeGrupos;
+  public entrada: Entrada = new Entrada()
+  public partidas: String[]
+
+
+
+  set nomeArquivoGrupos(nomeArquivoGrupos: string) {
+    this._nomeArquivoGrupos = nomeArquivoGrupos;
   }
-  get lista_Grupos(): Grupo[] {
-    return this._listaDeGrupos;
-  }
-  
-  set nomeArquivoPartidas(nomeArquivoPartidas : string) {
-    this._nomeArquivoPartidas = nomeArquivoPartidas;
-  }
-  get nomeArquivoPartidas():string {
-    return this._nomeArquivoPartidas;
+  get nomeArquivoGrupos(): string {
+    return this._nomeArquivoGrupos;
   }
 
-  set iniciado(iniciado: boolean) {
-    this._iniciado = iniciado;
+  set nomeArquivoPartidas(nomeArquivoPartidas: string) {
+    this._nomeArquivoPartidas = nomeArquivoPartidas;
   }
-  get iniciado() {
-    return this._iniciado;
+  get nomeArquivoPartidas(): string {
+    return this._nomeArquivoPartidas;
   }
 
   set listaGrupos(listaDeGrupos: Grupo[]) {
@@ -47,13 +41,20 @@ class Tabela {
     return this._listaDeGrupos;
   }
 
+  set iniciado(iniciado: boolean) {
+    this._iniciado = iniciado;
+  }
+  get iniciado() {
+    return this._iniciado;
+  }
+
   menu() {
     this.msgAjuda();
 
     while (true) {
 
       let comando = prompt("Entre com um comando: ");
-      
+
       switch (comando.toUpperCase()) {
 
         case "INICIAR":
@@ -84,8 +85,8 @@ class Tabela {
             this.msgAjuda()
             break;
           }
-            console.log("O programa foi encerrado. Obrigado pro utilizar nosso programa!");
-            this._iniciado = false
+          console.log("O programa foi encerrado. Obrigado pro utilizar nosso programa!");
+          this._iniciado = false
 
           return;
 
@@ -104,8 +105,8 @@ class Tabela {
       this._nomeArquivoGrupos = prompt("Entre com arquivos de grupos: ")
       this._nomeArquivoPartidas = prompt("Entre com o aquivos de partidas: ")
 
-      this._listaDeGrupos = this._entrada.lerEquipes(this._nomeArquivoGrupos)
-      this.partidas = this._entrada.lerResultados(this._nomeArquivoPartidas)
+      this._listaDeGrupos = this.entrada.lerEquipes(this._nomeArquivoGrupos)
+      this.partidas = this.entrada.lerResultados(this._nomeArquivoPartidas)
       this.carregarPartida()
 
     } catch (error) {
@@ -117,14 +118,14 @@ class Tabela {
   carregarPartida() {
     for (let grupo in this.partidas) {
       for (let p of this.partidas[grupo]) {
-        this.listaDeGrupos[grupo].partida(p)
+        this._listaDeGrupos[grupo].partida(p)
       }
     }
   }
 
   imprimir() {
     let grupoImprimir = prompt("Entre com o grupo que deseja imprimir a tabela: ").toUpperCase();
-    this.listaDeGrupos[grupoImprimir].imprimir();
+    this._listaDeGrupos[grupoImprimir].imprimir();
     this.msgAjudaProgramaIniciado();
   }
 
