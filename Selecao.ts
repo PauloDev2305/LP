@@ -1,4 +1,3 @@
-// Criando uma classe de seleções
 export class Selecao {
   private _nome: string;
   private _pontos: number;
