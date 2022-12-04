@@ -45,8 +45,9 @@ class Tabela {
 
         case "IMPRIMIR":
           if (this.iniciado == false) {
-            console.log("\r\nVocê não pode imprimir sem iniciar o programa. Por favor inicie o programa!\r\n");
+            console.log("\r\nVocê não pode imprimir sem antes iniciar o programa. Por favor inicie o programa!\r\n");
             this.msgAjuda()
+            break;
           } else {
             this.imprimir();
           }
