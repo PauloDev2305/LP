@@ -11,18 +11,25 @@ import { Entrada } from "./Entrada"
 class Tabela {
   private _nomeArquivoGrupos: string;
   private _nomeArquivoPartidas: string;
-
-  private _entrada: Entrada = new Entrada()
-  partidas: String[]
-
-  public _listaDeGrupos: Grupo[] = new Array<Grupo>();
   private _iniciado: boolean = false;
+  private _listaDeGrupos: Grupo[] = new Array<Grupo>();
+  
+  public entrada: Entrada = new Entrada()
+  public partidas: String[]
 
-  set lista_Grupos(_listaDeGrupos: Grupo[]) {
-    this._listaDeGrupos = _listaDeGrupos;
+  
+  set nomeArquivoGrupos(nomeArquivoGrupos : string) {
+    this._nomeArquivoGrupos = nomeArquivoGrupos;
   }
-  get lista_Grupos(): Grupo[] {
-    return this._listaDeGrupos;
+  get nomeArquivoGrupos():string {
+    return this._nomeArquivoGrupos;
+  }
+  
+  set nomeArquivoPartidas(nomeArquivoPartidas : string) {
+    this._nomeArquivoPartidas = nomeArquivoPartidas;
+  }
+  get nomeArquivoPartidas():string {
+    return this._nomeArquivoPartidas;
   }
 
   set iniciado(iniciado: boolean) {
@@ -32,13 +39,19 @@ class Tabela {
     return this._iniciado;
   }
 
+  set listaGrupos(listaDeGrupos: Grupo[]) {
+    this._listaDeGrupos = listaDeGrupos;
+  }
+  get listaGrupos(): Grupo[] {
+    return this._listaDeGrupos;
+  }
+
   menu() {
     this.msgAjuda();
     while (true) {
       let comando = prompt("Entre com um comando: ");
       switch (comando.toUpperCase()) {
         case "INICIAR":
-
           if (this._iniciado == false) {
             this.iniciar();
             this._iniciado = true
@@ -65,8 +78,8 @@ class Tabela {
             this.msgAjuda()
             break;
           }
-            console.log("O programa foi encerrado. Obrigado pro utilizar nosso programa!");
-            this._iniciado = false
+          console.log("O programa foi encerrado. Obrigado pro utilizar nosso programa!");
+          this._iniciado = false
 
           return;
 
@@ -82,8 +95,8 @@ class Tabela {
       this._nomeArquivoGrupos = prompt("Entre com arquivos de grupos: ")
       this._nomeArquivoPartidas = prompt("Entre com o aquivos de partidas: ")
 
-      this._listaDeGrupos = this._entrada.lerEquipes(this._nomeArquivoGrupos)
-      this.partidas = this._entrada.lerResultados(this._nomeArquivoPartidas)
+      this._listaDeGrupos = this.entrada.lerEquipes(this._nomeArquivoGrupos)
+      this.partidas = this.entrada.lerResultados(this._nomeArquivoPartidas)
       this.carregarPartida()
 
     } catch (error) {
@@ -118,7 +131,6 @@ class Tabela {
     console.log("Para imprimir a tabela digite: IMPRIMIR");
     console.log("Para terminar digite: ENCERRAR");
   }
-
 }
 let tabela = new Tabela();
 tabela.menu();
