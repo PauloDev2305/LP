@@ -1,3 +1,8 @@
+/* 
+INSTITUTO DE MATO GROSSO DO SUL- CAMPUS DE AQUIDAUANA
+Nomes: Cecilya de Moraes Ribeiro, Júlia Trindade Picolo e Paulo Henrique Rodrigues Corrêa.
+Curso: Informática 4 	          		       Período: Vespertino 
+*/
 import * as promptSync from "prompt-sync";
 const prompt = promptSync();
 import { Grupo } from "./Grupo";
