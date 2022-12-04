@@ -3,6 +3,7 @@ INSTITUTO DE MATO GROSSO DO SUL- CAMPUS DE AQUIDAUANA
 Nomes: Cecilya de Moraes Ribeiro, Júlia Trindade Picolo e Paulo Henrique Rodrigues Corrêa.
 Curso: Informática 4 	          		       Período: Vespertino 
 */
+
 import * as promptSync from "prompt-sync";
 const prompt = promptSync();
 import { Grupo } from "./Grupo";
@@ -12,17 +13,17 @@ class Tabela {
   private _nomeArquivoGrupos: string;
   private _nomeArquivoPartidas: string;
 
-  private _entrada: Entrada = new Entrada()
-  partidas: String[]
+  private _entrada: Entrada = new Entrada();
+  public partidas: String[];
 
-  public _listaDeGrupos: Grupo[] = new Array<Grupo>();
+  public listaDeGrupos: Grupo[] = new Array<Grupo>();
   private _iniciado: boolean = false;
 
-  set lista_Grupos(_listaDeGrupos: Grupo[]) {
-    this._listaDeGrupos = _listaDeGrupos;
+  set lista_Grupos(listaDeGrupos: Grupo[]) {
+    this.listaDeGrupos = listaDeGrupos;
   }
   get lista_Grupos(): Grupo[] {
-    return this._listaDeGrupos;
+    return this.listaDeGrupos;
   }
 
   set iniciado(iniciado: boolean) {
@@ -34,16 +35,19 @@ class Tabela {
 
   menu() {
     this.msgAjuda();
-    while (true) {
-      let comando = prompt("Entre com um comando: ");
-      switch (comando.toUpperCase()) {
-        case "INICIAR":
 
+    while (true) {
+
+      let comando = prompt("Entre com um comando: ");
+      
+      switch (comando.toUpperCase()) {
+
+        case "INICIAR":
           if (this._iniciado == false) {
             this.iniciar();
             this._iniciado = true
           } else {
-            console.log('\r\nO comando não pode ser iniciado mais de uma vez!\r\n')
+            console.log('\r\nO programa não pode ser iniciado mais de uma vez!\r\n')
           }
 
           break;
@@ -65,7 +69,8 @@ class Tabela {
             this.msgAjuda()
             break;
           }
-            console.log("O programa foi encerrado. Obrigado pro utilizar nosso programa!");
+
+            console.log("O programa foi encerrado. Obrigado pro utilizá-lo!");
             this._iniciado = false
 
           return;
@@ -78,16 +83,19 @@ class Tabela {
   }
 
   iniciar() {
+    /* A fim de tratar o erro caso o usuário digite os nomes errados dos arquivos, utilizamos o método try / catch, onde, no try ele irá
+     tentar executar determinado trecho de código, mas em caso de erro irá para o catch, onde o erro será tratado*/
+
     try {
       this._nomeArquivoGrupos = prompt("Entre com arquivos de grupos: ")
       this._nomeArquivoPartidas = prompt("Entre com o aquivos de partidas: ")
 
-      this._listaDeGrupos = this._entrada.lerEquipes(this._nomeArquivoGrupos)
+      this.listaDeGrupos = this._entrada.lerEquipes(this._nomeArquivoGrupos)
       this.partidas = this._entrada.lerResultados(this._nomeArquivoPartidas)
       this.carregarPartida()
 
     } catch (error) {
-      console.log('\r\nNome(s) do(s) arquivo(s) incorreto(s)! Por favor, insira o arquivo correto!\r\n')
+      console.log('\r\nNome(s) do(s) arquivo(s) incorreto(s)! Por favor, insira o arquivo correto.\r\n')
       this.iniciar()
     }
   }
@@ -95,30 +103,31 @@ class Tabela {
   carregarPartida() {
     for (let grupo in this.partidas) {
       for (let p of this.partidas[grupo]) {
-        this._listaDeGrupos[grupo].partida(p)
+        this.listaDeGrupos[grupo].partida(p)
       }
     }
   }
 
   imprimir() {
     let grupoImprimir = prompt("Entre com o grupo que deseja imprimir a tabela: ").toUpperCase();
-    this._listaDeGrupos[grupoImprimir].imprimir();
+    this.listaDeGrupos[grupoImprimir].imprimir();
     this.msgAjudaProgramaIniciado();
   }
 
   msgAjuda() {
-    console.log("MENU DE COMANDOS ABAIXO");
+    console.log("MENU DE COMANDOS ABAIXO:");
     console.log("Para iniciar a tabela digite: INICIAR");
     console.log("Para imprimir a tabela digite: IMPRIMIR");
     console.log("Para terminar digite: ENCERRAR");
   }
 
   msgAjudaProgramaIniciado() {
-    console.log("MENU DE COMANDOS A BAIXO");
+    console.log("MENU DE COMANDOS ABAIXO:");
     console.log("Para imprimir a tabela digite: IMPRIMIR");
     console.log("Para terminar digite: ENCERRAR");
   }
 
 }
+
 let tabela = new Tabela();
 tabela.menu();

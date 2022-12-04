@@ -41,7 +41,7 @@ export class Selecao {
   }
 
   set derrotas(d: number) {
-    this._vitorias = d;
+    this._derrotas = d;
   }
   get derrotas(): number {
     return this._derrotas;

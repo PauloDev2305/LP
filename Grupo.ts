@@ -12,10 +12,10 @@ export class Grupo {
     return this._nomeDoGrupo;
   }
 
-  set Selecao(lista_de_selecoes: Selecao[]) {
-    this._listaSelecoes = lista_de_selecoes;
+  set ListaSelecoes(listaDeSelecoes: Selecao[]) {
+    this._listaSelecoes = listaDeSelecoes;
   }
-  get Selecao(): Selecao[] {
+  get ListaSelecoes(): Selecao[] {
     return this._listaSelecoes;
   }
 
@@ -24,7 +24,7 @@ export class Grupo {
     this._listaSelecoes = [];
 
     for (let i = 0; i < 4; i++) {
-      this._listaSelecoes[i] = new Selecao(quatroSelecoes[i])
+      this._listaSelecoes[i] = new Selecao(quatroSelecoes[i]);
     }
   }
 
@@ -53,9 +53,11 @@ export class Grupo {
     if (golS1 > golS2) {
       this.atualizarVitoria(S1, golS1, S2, golS2)
     }
+
     if (golS1 < golS2) {
       this.atualizarVitoria(S2, golS2, S1, golS1)
     }
+
     if (golS1 == golS2) {
       for (const sel of this._listaSelecoes) {
         if (sel.nome == S1 || sel.nome == S2) {
@@ -66,6 +68,7 @@ export class Grupo {
         }
       }
     }
+
   }
 
   partida(resultadoPartida: string): void {
@@ -95,8 +98,8 @@ export class Grupo {
       }
       return 0;
     });
-    // Inverte a tabela
-    this._listaSelecoes.reverse();
+    
+    this._listaSelecoes.reverse();  // Inverte a tabela
   }
 
   imprimir() {
