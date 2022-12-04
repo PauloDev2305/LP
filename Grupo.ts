@@ -7,7 +7,7 @@ export class Grupo {
   set nomeDoGrupo(ng: string) {
     this._nomeDoGrupo = ng;
   }
-  
+
   get nomeDoGrupo(): string {
     return this._nomeDoGrupo;
   }
@@ -56,7 +56,6 @@ export class Grupo {
     if (golS1 < golS2) {
       this.atualizarVitoria(S2, golS2, S1, golS1)
     }
-    
     if (golS1 == golS2) {
       for (const sel of this._listaSelecoes) {
         if (sel.nome == S1 || sel.nome == S2) {
@@ -104,5 +103,4 @@ export class Grupo {
     this.ordenarSelecoes();
     console.table(this._listaSelecoes);
   }
-
 }

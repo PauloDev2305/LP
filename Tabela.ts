@@ -27,47 +27,50 @@ class Tabela {
     return this._iniciado;
   }
 
-  // Menu de comandos
   menu() {
-    // Caso vc coloque uma msg errada ele vai te dar as instruções correta
     this.msgAjuda();
-    // Assumindo que esse laço vai ser sempre verdadeiro
     while (true) {
       var comando = prompt("Entre com um comando: ");
-      // É um if e else inteligente
       switch (comando.toUpperCase()) {
         case "INICIAR":
 
-        if (this._iniciado == false) {
+          if (this._iniciado == false) {
             this.iniciar();
             this._iniciado = true
           } else {
-            console.log('O comando não pode ser iniciado mais de uma vez!')
+            console.log('\r\nO comando não pode ser iniciado mais de uma vez!\r\n')
           }
 
           break;
 
-        case "LER PARTIDA":
-          this.carregarPartida();
-          break;
-
         case "IMPRIMIR":
-          this.imprimir();
+          if (this.iniciado == false) {
+            console.log("\r\nVocê não pode imprimir sem iniciar o programa. Por favor inicie o programa!\r\n");
+            this.msgAjuda()
+          } else {
+            this.imprimir();
+          }
+
           break;
 
         case "ENCERRAR":
-          console.log("O programa foi encerrado. Obrigado pro utilizar nosso programa!");
-          this._iniciado = false
+          if (this.iniciado == false) {
+            console.log("\r\nPor favor inicie o programa antes de encerrar!\r\n");
+            this.msgAjuda()
+            break;
+          }
+            console.log("O programa foi encerrado. Obrigado pro utilizar nosso programa!");
+            this._iniciado = false
+
           return;
 
         default:
-          console.log("\nComando Inválido!");
+          console.log("Comando Inválido!\r\n");
           break;
       }
     }
   }
 
-  // Iniciando a tabela
   iniciar() {
     try {
       this._nomeArquivoGrupos = prompt("Entre com arquivos de grupos: ")
@@ -78,7 +81,7 @@ class Tabela {
       this.carregarPartida()
 
     } catch (error) {
-      console.log('Nome(s) do(s) arquivo(s) incorreto(s)! Por favor, insira o arquivo correto.')
+      console.log('\r\nNome(s) do(s) arquivo(s) incorreto(s)! Por favor, insira o arquivo correto!\r\n')
       this.iniciar()
     }
   }
@@ -97,19 +100,15 @@ class Tabela {
     this.msgAjudaProgramaIniciado();
   }
 
-  // Mensagem de ajuda quando o programa ainda não foi iniciado
   msgAjuda() {
     console.log("MENU DE COMANDOS ABAIXO");
     console.log("Para iniciar a tabela digite: INICIAR");
-    console.log("Para ler partida digite: Ler partida");
     console.log("Para imprimir a tabela digite: IMPRIMIR");
     console.log("Para terminar digite: ENCERRAR");
   }
 
-  // Mensagem de ajuda quando o programa é iniciado
   msgAjudaProgramaIniciado() {
     console.log("MENU DE COMANDOS A BAIXO");
-    console.log("Para ler partida digite: Ler partida");
     console.log("Para imprimir a tabela digite: IMPRIMIR");
     console.log("Para terminar digite: ENCERRAR");
   }
