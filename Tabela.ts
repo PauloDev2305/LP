@@ -12,18 +12,33 @@ import { Entrada } from "./Entrada"
 class Tabela {
   private _nomeArquivoGrupos: string;
   private _nomeArquivoPartidas: string;
-
-  private _entrada: Entrada = new Entrada();
-  public partidas: String[];
-
-  public listaDeGrupos: Grupo[] = new Array<Grupo>();
+  private _listaDeGrupos: Grupo[] = new Array<Grupo>();
   private _iniciado: boolean = false;
 
-  set lista_Grupos(listaDeGrupos: Grupo[]) {
-    this.listaDeGrupos = listaDeGrupos;
+  public entrada: Entrada = new Entrada()
+  public partidas: String[]
+
+
+
+  set nomeArquivoGrupos(nomeArquivoGrupos: string) {
+    this._nomeArquivoGrupos = nomeArquivoGrupos;
   }
-  get lista_Grupos(): Grupo[] {
-    return this.listaDeGrupos;
+  get nomeArquivoGrupos(): string {
+    return this._nomeArquivoGrupos;
+  }
+
+  set nomeArquivoPartidas(nomeArquivoPartidas: string) {
+    this._nomeArquivoPartidas = nomeArquivoPartidas;
+  }
+  get nomeArquivoPartidas(): string {
+    return this._nomeArquivoPartidas;
+  }
+
+  set listaGrupos(listaDeGrupos: Grupo[]) {
+    this._listaDeGrupos = listaDeGrupos;
+  }
+  get listaGrupos(): Grupo[] {
+    return this._listaDeGrupos;
   }
 
   set iniciado(iniciado: boolean) {
@@ -39,10 +54,11 @@ class Tabela {
     while (true) {
 
       let comando = prompt("Entre com um comando: ");
-      
+
       switch (comando.toUpperCase()) {
 
         case "INICIAR":
+
           if (this._iniciado == false) {
             this.iniciar();
             this._iniciado = true
@@ -69,9 +85,8 @@ class Tabela {
             this.msgAjuda()
             break;
           }
-
-            console.log("O programa foi encerrado. Obrigado pro utilizá-lo!");
-            this._iniciado = false
+          console.log("O programa foi encerrado. Obrigado pro utilizar nosso programa!");
+          this._iniciado = false
 
           return;
 
@@ -90,8 +105,8 @@ class Tabela {
       this._nomeArquivoGrupos = prompt("Entre com arquivos de grupos: ")
       this._nomeArquivoPartidas = prompt("Entre com o aquivos de partidas: ")
 
-      this.listaDeGrupos = this._entrada.lerEquipes(this._nomeArquivoGrupos)
-      this.partidas = this._entrada.lerResultados(this._nomeArquivoPartidas)
+      this._listaDeGrupos = this.entrada.lerEquipes(this._nomeArquivoGrupos)
+      this.partidas = this.entrada.lerResultados(this._nomeArquivoPartidas)
       this.carregarPartida()
 
     } catch (error) {
@@ -103,14 +118,14 @@ class Tabela {
   carregarPartida() {
     for (let grupo in this.partidas) {
       for (let p of this.partidas[grupo]) {
-        this.listaDeGrupos[grupo].partida(p)
+        this._listaDeGrupos[grupo].partida(p)
       }
     }
   }
 
   imprimir() {
     let grupoImprimir = prompt("Entre com o grupo que deseja imprimir a tabela: ").toUpperCase();
-    this.listaDeGrupos[grupoImprimir].imprimir();
+    this._listaDeGrupos[grupoImprimir].imprimir();
     this.msgAjudaProgramaIniciado();
   }
 
@@ -126,7 +141,6 @@ class Tabela {
     console.log("Para imprimir a tabela digite: IMPRIMIR");
     console.log("Para terminar digite: ENCERRAR");
   }
-
 }
 
 let tabela = new Tabela();
