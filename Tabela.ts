@@ -54,7 +54,7 @@ class Tabela {
 
         case "IMPRIMIR":
           if (this.iniciado == false) {
-            console.log("\r\nVocê não pode imprimir sem antes iniciar o programa. Por favor inicie o programa!\r\n");
+            console.log("\r\nVocê não pode imprimir sem antes iniciar o programa. Por favor, inicie o programa!\r\n");
             this.msgAjuda()
             break;
           } else {
@@ -65,7 +65,7 @@ class Tabela {
 
         case "ENCERRAR":
           if (this.iniciado == false) {
-            console.log("\r\nPor favor inicie o programa antes de encerrar!\r\n");
+            console.log("\r\nPor favor, inicie o programa antes de encerrar!\r\n");
             this.msgAjuda()
             break;
           }
