@@ -10,7 +10,7 @@ interface IEntrada {
 export class Entrada implements IEntrada {
     lerEquipes(nomeArquivo: string): Grupo[] {
         var arquivo = readFileSync(nomeArquivo, "utf-8")
-        var vetEntrada = arquivo.split('\r\n')
+        var vetEntrada = arquivo.split('\n')
 
         let listaGrupos: Grupo[] = new Array<Grupo>()
 
@@ -23,7 +23,7 @@ export class Entrada implements IEntrada {
 
     lerResultados(nomeArquivo: string): string[] {
         var arquivo = readFileSync(nomeArquivo, "utf-8")
-        var vetResultado = arquivo.split('\r\n')
+        var vetResultado = arquivo.split('\n')
 
         var vetorPartidas = new Array()
 

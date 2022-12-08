@@ -27,15 +27,11 @@ class Tabela {
     return this._iniciado;
   }
 
-  // Menu de comandos
   menu() {
-    // Caso vc coloque uma msg errada ele vai te dar as instruções correta
     this.msgAjuda();
-    // Assumindo que esse laço vai ser sempre verdadeiro
     while (true) {
       var comando = prompt("Entre com um comando: ");
-      // É um if e else inteligente
-      switch (comando.toUpperCase() /* se o comando for igual a algum que está especificado entra no case*/) {
+      switch (comando.toUpperCase()) {
         case "INICIAR":
           this.iniciar();
           break;
@@ -59,7 +55,6 @@ class Tabela {
     }
   }
 
-  // Iniciando a tabela
   iniciar() {
     this._nomeArquivoGrupos = prompt("Entre com arquivos de grupos: ")
     this._nomeArquivoPartidas = prompt("Entre com o aquivos de partidas: ")
