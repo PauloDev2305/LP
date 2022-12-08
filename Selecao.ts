@@ -1,4 +1,3 @@
-// Criando uma classe de seleções
 export class Selecao {
   private _nome: string;
   private _pontos: number;
@@ -42,7 +41,7 @@ export class Selecao {
   }
 
   set derrotas(d: number) {
-    this._vitorias = d;
+    this._derrotas = d;
   }
   get derrotas(): number {
     return this._derrotas;

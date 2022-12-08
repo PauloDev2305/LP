@@ -1,11 +1,17 @@
 A
-BR
-ES
-PT
-AR
+QA
+EC
+SN
+NL
 
 B
-USA
 EN
-DI
-SU
+IR
+USA
+WL
+
+C
+AR
+SA
+MX
+PL

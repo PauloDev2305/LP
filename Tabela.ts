@@ -1,22 +1,43 @@
+/* 
+INSTITUTO DE MATO GROSSO DO SUL- CAMPUS DE AQUIDAUANA
+Nomes: Cecilya de Moraes Ribeiro, Júlia Trindade Picolo e Paulo Henrique Rodrigues Corrêa.
+Curso: Informática 4 	          		       Período: Vespertino 
+*/
+
 import * as promptSync from "prompt-sync";
-var prompt = promptSync();
+const prompt = promptSync();
 import { Grupo } from "./Grupo";
 import { Entrada } from "./Entrada"
 
 class Tabela {
   private _nomeArquivoGrupos: string;
   private _nomeArquivoPartidas: string;
+  private _listaDeGrupos: Grupo[] = new Array<Grupo>();
+  private _iniciado: boolean = false;
 
-  private _entrada: Entrada = new Entrada()
-  partidas: String[]
+  public entrada: Entrada = new Entrada()
+  public partidas: String[]
 
-  public _listaDeGrupos: Grupo[] = new Array<Grupo>();
-  private _iniciado: boolean = false; 
 
-  set lista_Grupos(_listaDeGrupos: Grupo[]) {
-    this._listaDeGrupos = _listaDeGrupos;
+
+  set nomeArquivoGrupos(nomeArquivoGrupos: string) {
+    this._nomeArquivoGrupos = nomeArquivoGrupos;
   }
-  get lista_Grupos(): Grupo[] {
+  get nomeArquivoGrupos(): string {
+    return this._nomeArquivoGrupos;
+  }
+
+  set nomeArquivoPartidas(nomeArquivoPartidas: string) {
+    this._nomeArquivoPartidas = nomeArquivoPartidas;
+  }
+  get nomeArquivoPartidas(): string {
+    return this._nomeArquivoPartidas;
+  }
+
+  set listaGrupos(listaDeGrupos: Grupo[]) {
+    this._listaDeGrupos = listaDeGrupos;
+  }
+  get listaGrupos(): Grupo[] {
     return this._listaDeGrupos;
   }
 
@@ -27,41 +48,72 @@ class Tabela {
     return this._iniciado;
   }
 
+  // Menu de comandos
   menu() {
+    // Caso vc coloque uma msg errada ele vai te dar as instruções correta
     this.msgAjuda();
+    // Assumindo que esse laço vai ser sempre verdadeiro
     while (true) {
       var comando = prompt("Entre com um comando: ");
-      switch (comando.toUpperCase()) {
+      // É um if e else inteligente
+      switch (comando.toUpperCase() /* se o comando for igual a algum que está especificado entra no case*/) {
         case "INICIAR":
-          this.iniciar();
-          break;
 
-        case "LER PARTIDA":
-          this.carregarPartida();
+          if (this._iniciado == false) {
+            this.iniciar();
+            this._iniciado = true
+          } else {
+            console.log('\r\nO programa não pode ser iniciado mais de uma vez!\r\n')
+          }
+
           break;
 
         case "IMPRIMIR":
-          this.imprimir();
+          if (this.iniciado == false) {
+            console.log("\r\nVocê não pode imprimir sem antes iniciar o programa. Por favor, inicie o programa!\r\n");
+            this.msgAjuda()
+            break;
+          } else {
+            this.imprimir();
+          }
+
           break;
 
         case "ENCERRAR":
-          console.log("O programa foi encerrado, obrigado pro utilizar nosso programa!");
+          if (this.iniciado == false) {
+            console.log("\r\nPor favor, inicie o programa antes de encerrar!\r\n");
+            this.msgAjuda()
+            break;
+          }
+          console.log("O programa foi encerrado. Obrigado pro utilizar nosso programa!");
+          this._iniciado = false
+
           return;
 
         default:
-          console.log("\nComando Inválido!");
+          console.log("Comando Inválido!\r\n");
           break;
       }
     }
   }
 
+  // Iniciando a tabela
   iniciar() {
-    this._nomeArquivoGrupos = prompt("Entre com arquivos de grupos: ")
-    this._nomeArquivoPartidas = prompt("Entre com o aquivos de partidas: ")
+    /* A fim de tratar o erro caso o usuário digite os nomes errados dos arquivos, utilizamos o método try / catch, onde, no try ele irá
+     tentar executar determinado trecho de código, mas em caso de erro irá para o catch, onde o erro será tratado*/
 
-    this._listaDeGrupos = this._entrada.lerEquipes(this._nomeArquivoGrupos)
-    this.partidas = this._entrada.lerResultados(this._nomeArquivoPartidas)
-    this.carregarPartida()
+    try {
+      this._nomeArquivoGrupos = prompt("Entre com arquivos de grupos: ")
+      this._nomeArquivoPartidas = prompt("Entre com o aquivos de partidas: ")
+
+      this._listaDeGrupos = this.entrada.lerEquipes(this._nomeArquivoGrupos)
+      this.partidas = this.entrada.lerResultados(this._nomeArquivoPartidas)
+      this.carregarPartida()
+
+    } catch (error) {
+      console.log('\r\nNome(s) do(s) arquivo(s) incorreto(s)! Por favor, insira o arquivo correto.\r\n')
+      this.iniciar()
+    }
   }
 
   carregarPartida() {
@@ -73,28 +125,24 @@ class Tabela {
   }
 
   imprimir() {
-    var grupoImprimir = prompt("Entre com o grupo que deseja imprimir a tabela: ").toUpperCase();
+    let grupoImprimir = prompt("Entre com o grupo que deseja imprimir a tabela: ").toUpperCase();
     this._listaDeGrupos[grupoImprimir].imprimir();
     this.msgAjudaProgramaIniciado();
   }
 
-  // Mensagem de ajuda quando o programa ainda não foi iniciado
   msgAjuda() {
-    console.log("MENU DE COMANDOS ABAIXO");
+    console.log("MENU DE COMANDOS ABAIXO:");
     console.log("Para iniciar a tabela digite: INICIAR");
-    console.log("Para ler partida digite: Ler partida");
     console.log("Para imprimir a tabela digite: IMPRIMIR");
     console.log("Para terminar digite: ENCERRAR");
   }
 
-  // Mensagem de ajuda quando o programa é iniciado
   msgAjudaProgramaIniciado() {
-    console.log("MENU DE COMANDOS A BAIXO");
-    console.log("Para ler partida digite: Ler partida");
+    console.log("MENU DE COMANDOS ABAIXO:");
     console.log("Para imprimir a tabela digite: IMPRIMIR");
     console.log("Para terminar digite: ENCERRAR");
   }
-
 }
-var tabela = new Tabela();
+
+let tabela = new Tabela();
 tabela.menu();
