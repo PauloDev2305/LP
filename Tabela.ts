@@ -18,8 +18,6 @@ class Tabela {
   public entrada: Entrada = new Entrada()
   public partidas: String[]
 
-
-
   set nomeArquivoGrupos(nomeArquivoGrupos: string) {
     this._nomeArquivoGrupos = nomeArquivoGrupos;
   }
@@ -108,10 +106,10 @@ class Tabela {
       this._listaDeGrupos = this.entrada.lerEquipes(this._nomeArquivoGrupos)
       this.partidas = this.entrada.lerResultados(this._nomeArquivoPartidas)
       this.carregarPartida()
-
     } catch (error) {
       console.log('\r\nNome(s) do(s) arquivo(s) incorreto(s)! Por favor, insira o arquivo correto.\r\n')
       this.iniciar()
+      this.ArrowUp()
     }
   }
 
@@ -141,6 +139,12 @@ class Tabela {
     console.log("Para imprimir a tabela digite: IMPRIMIR");
     console.log("Para terminar digite: ENCERRAR");
   }
+
+  ArrowUp() {
+    console.log("dfew");
+    
+  }
+
 }
 
 let tabela = new Tabela();

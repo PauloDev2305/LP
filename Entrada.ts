@@ -1,5 +1,6 @@
 import { Grupo } from './Grupo';
 import { readFileSync } from 'fs';
+import { log } from 'console';
 
 interface IEntrada {
     lerEquipes(nomeArquivo: string): Grupo[];
@@ -43,16 +44,11 @@ export class Entrada implements IEntrada {
         let comando = readFileSync("src/Comandos.txt", 'utf-8');
         let listaComandos = comando.split("\r\n");
 
-        let array;
-        for(let i = listaComandos.length; i >= 0; i--) {
+    let array;
+       for(let i = listaComandos.length -1; i >= 0; i-- ) {
             array =listaComandos[i];
-            console.log(array);
         }
 
         return array;
     } 
-
 }
-
-var b = new Entrada();
-b.lerComandos();
