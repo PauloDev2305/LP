@@ -40,15 +40,16 @@ export class Entrada implements IEntrada {
 
         return vetorPartidas;
     }
+    
     lerComandos(): string[] {
         let comando = readFileSync("src/Comandos.txt", 'utf-8');
         let listaComandos = comando.split("\r\n");
 
-    let array;
-       for(let i = listaComandos.length -1; i >= 0; i-- ) {
-            array =listaComandos[i];
-        }
-
-        return array;
-    } 
+        let vetComandos;
+            for(let i = listaComandos.length -1; i >= 0; i--) {
+                vetComandos = listaComandos[i];
+            }
+            
+        return vetComandos;
+    }
 }
