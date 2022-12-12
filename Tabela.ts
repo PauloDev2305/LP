@@ -121,8 +121,13 @@ class Tabela {
 
   imprimir() {
     let grupoImprimir = prompt("Entre com o grupo que deseja imprimir a tabela: ").toUpperCase();
-    this._listaDeGrupos[grupoImprimir].imprimir();
-    this.msgAjudaProgramaIniciado();
+      if(grupoImprimir.value == this.entrada.lerResultados[0]){
+        this._listaDeGrupos[grupoImprimir].imprimir();
+        this.msgAjudaProgramaIniciado();
+    } else{
+      console.log("Grupo não encontrado");
+      
+    }
   }
 
   msgAjuda() {
