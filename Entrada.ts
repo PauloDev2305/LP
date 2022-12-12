@@ -1,11 +1,11 @@
 import { Grupo } from './Grupo';
 import { readFileSync } from 'fs';
-import { log } from 'console';
 
 interface IEntrada {
     lerEquipes(nomeArquivo: string): Grupo[];
     lerResultados(nomeArquivo: string): String[];
     lerComandos(): string[];
+    ArrowUp():any;
 }
 
 export class Entrada implements IEntrada {
@@ -40,7 +40,11 @@ export class Entrada implements IEntrada {
 
         return vetorPartidas;
     }
-    
+
+    ArrowUp():any {
+
+    }
+
     lerComandos(): string[] {
         let comando = readFileSync("src/Comandos.txt", 'utf-8');
         let listaComandos = comando.split("\r\n");

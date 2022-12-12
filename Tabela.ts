@@ -5,7 +5,7 @@ Curso: Informática 4 	          		       Período: Vespertino
 */
 
 import * as promptSync from "prompt-sync";
-const prompt = promptSync();
+let prompt = promptSync();
 import { Grupo } from "./Grupo";
 import { Entrada } from "./Entrada"
 
@@ -17,6 +17,7 @@ class Tabela {
 
   public entrada: Entrada = new Entrada()
   public partidas: String[]
+  public comandos: [] 
 
   set nomeArquivoGrupos(nomeArquivoGrupos: string) {
     this._nomeArquivoGrupos = nomeArquivoGrupos;
@@ -56,7 +57,6 @@ class Tabela {
       switch (comando.toUpperCase()) {
 
         case "INICIAR":
-
           if (this._iniciado == false) {
             this.iniciar();
             this._iniciado = true
@@ -96,9 +96,8 @@ class Tabela {
   }
 
   iniciar() {
-    /* A fim de tratar o erro caso o usuário digite os nomes errados dos arquivos, utilizamos o método try / catch, onde, no try ele irá
-     tentar executar determinado trecho de código, mas em caso de erro irá para o catch, onde o erro será tratado*/
-
+    /*A fim de tratar o erro caso o usuário digite os nomes errados dos arquivos, utilizamos o método try / catch, onde, no try 
+    ele irá tentar executar determinado trecho de código, mas em caso de erro irá para o catch, onde o erro será tratado*/
     try {
       this._nomeArquivoGrupos = prompt("Entre com arquivos de grupos: ")
       this._nomeArquivoPartidas = prompt("Entre com o aquivos de partidas: ")
@@ -109,7 +108,6 @@ class Tabela {
     } catch (error) {
       console.log('\r\nNome(s) do(s) arquivo(s) incorreto(s)! Por favor, insira o arquivo correto.\r\n')
       this.iniciar()
-      this.ArrowUp()
     }
   }
 
@@ -138,11 +136,6 @@ class Tabela {
     console.log("MENU DE COMANDOS ABAIXO:");
     console.log("Para imprimir a tabela digite: IMPRIMIR");
     console.log("Para terminar digite: ENCERRAR");
-  }
-
-  ArrowUp() {
-    console.log("dfew");
-    
   }
 
 }
