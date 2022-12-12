@@ -5,7 +5,7 @@ Curso: Informática 4 	          		       Período: Vespertino
 */
 
 import * as promptSync from "prompt-sync";
-const prompt = promptSync();
+let prompt = promptSync();
 import { Grupo } from "./Grupo";
 import { Entrada } from "./Entrada"
 
@@ -17,8 +17,7 @@ class Tabela {
 
   public entrada: Entrada = new Entrada()
   public partidas: String[]
-
-
+  public comandos: [] 
 
   set nomeArquivoGrupos(nomeArquivoGrupos: string) {
     this._nomeArquivoGrupos = nomeArquivoGrupos;
@@ -58,7 +57,6 @@ class Tabela {
       // É um if e else inteligente
       switch (comando.toUpperCase() /* se o comando for igual a algum que está especificado entra no case*/) {
         case "INICIAR":
-
           if (this._iniciado == false) {
             this.iniciar();
             this._iniciado = true
@@ -99,9 +97,8 @@ class Tabela {
 
   // Iniciando a tabela
   iniciar() {
-    /* A fim de tratar o erro caso o usuário digite os nomes errados dos arquivos, utilizamos o método try / catch, onde, no try ele irá
-     tentar executar determinado trecho de código, mas em caso de erro irá para o catch, onde o erro será tratado*/
-
+    /*A fim de tratar o erro caso o usuário digite os nomes errados dos arquivos, utilizamos o método try / catch, onde, no try 
+    ele irá tentar executar determinado trecho de código, mas em caso de erro irá para o catch, onde o erro será tratado*/
     try {
       this._nomeArquivoGrupos = prompt("Entre com arquivos de grupos: ")
       this._nomeArquivoPartidas = prompt("Entre com o aquivos de partidas: ")
@@ -109,7 +106,6 @@ class Tabela {
       this._listaDeGrupos = this.entrada.lerEquipes(this._nomeArquivoGrupos)
       this.partidas = this.entrada.lerResultados(this._nomeArquivoPartidas)
       this.carregarPartida()
-
     } catch (error) {
       console.log('\r\nNome(s) do(s) arquivo(s) incorreto(s)! Por favor, insira o arquivo correto.\r\n')
       this.iniciar()
@@ -126,8 +122,13 @@ class Tabela {
 
   imprimir() {
     let grupoImprimir = prompt("Entre com o grupo que deseja imprimir a tabela: ").toUpperCase();
-    this._listaDeGrupos[grupoImprimir].imprimir();
-    this.msgAjudaProgramaIniciado();
+      if(grupoImprimir.value == this.entrada.lerResultados[0]){
+        this._listaDeGrupos[grupoImprimir].imprimir();
+        this.msgAjudaProgramaIniciado();
+    } else{
+      console.log("Grupo não encontrado");
+      
+    }
   }
 
   msgAjuda() {
@@ -142,6 +143,7 @@ class Tabela {
     console.log("Para imprimir a tabela digite: IMPRIMIR");
     console.log("Para terminar digite: ENCERRAR");
   }
+
 }
 
 let tabela = new Tabela();
