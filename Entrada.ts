@@ -4,12 +4,13 @@ import { readFileSync } from 'fs'
 interface IEntrada {
     lerEquipes(nomeArquivo: string): Grupo[];
     lerResultados(nomeArquivo: string): String[];
+    lerComandos(): any
 }
 
 export class Entrada implements IEntrada {
     lerEquipes(nomeArquivo: string): Grupo[] {
         var arquivo = readFileSync(nomeArquivo, "utf-8")
-        var vetEntrada = arquivo.split('\r\n')
+        var vetEntrada = arquivo.split('\n')
 
         let listaGrupos: Grupo[] = new Array<Grupo>();
 
@@ -22,7 +23,7 @@ export class Entrada implements IEntrada {
 
     lerResultados(nomeArquivo: string): string[] {
         var arquivo = readFileSync(nomeArquivo, "utf-8")
-        var vetResultado = arquivo.split('\r\n')
+        var vetResultado = arquivo.split('\n')
 
         let vetorPartidas = new Array();
 
@@ -38,4 +39,19 @@ export class Entrada implements IEntrada {
 
         return vetorPartidas
     }
+
+    lerComandos():any {
+        let comando = readFileSync("src/Comandos.txt", 'utf-8')
+        let listaDeCoamandos = comando.split("\n")
+
+        let vetComandos
+
+        for (let i = listaDeCoamandos.length -1; i >= 0; i--) {
+            vetComandos = listaDeCoamandos[i]
+            console.log(vetComandos);
+        }
+         return vetComandos
+    }
 }
+var a = new Entrada
+a.lerComandos()
